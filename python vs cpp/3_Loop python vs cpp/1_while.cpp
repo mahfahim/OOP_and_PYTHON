@@ -1,0 +1,15 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int i;
+
+    // while
+    i = 3;
+    while (i <= 10) {
+        cout << i << endl;
+        i = i + 1;
+    }
+
+    return 0;
+}
