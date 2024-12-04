@@ -7,7 +7,7 @@ def double_decker():
     return inner_fun
 
 # print(double_decker())
-# print(double_decker()())
+print(double_decker()())
 
 def do_something(work):
     print('work started')
@@ -24,4 +24,4 @@ def coding():
 def sleeping():
     print('sleeping and dreaming in python')
 
-do_something(sleeping)
+# do_something(sleeping)
