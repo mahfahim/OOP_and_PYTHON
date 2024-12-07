@@ -111,7 +111,7 @@ while True:
               break
         else:
             print("Hall not found")
-            continue2
+            continue
         x = int(input("Enter Show ID: "))
         flag = True
         for h in halls:
