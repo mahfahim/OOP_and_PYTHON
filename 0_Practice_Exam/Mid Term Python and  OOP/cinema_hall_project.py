@@ -55,7 +55,7 @@ class hall(star_cinema):
             print(f"Show_ID: {id} , Movie_name: {nam} , Time: {t}")
     
     def view_available_seats(self,show_id):
-        print(f"Seats for Show id {show_id}: ")
+        print(f"\nSeats for Show id {show_id}: ")
         if show_id not in self._seats:
             print("This show is not found")
             return
@@ -66,6 +66,14 @@ class hall(star_cinema):
                if self._seats[show_id][i][j] == 0:
                     print(f"Seat({i},{j})") 
                     flag=False       
+        
+        print("\nMatrix Form : ")
+        for i in range(self._rows):
+            print("[",end=" ")
+            for j in range(self._cols):
+                 print(self._seats[show_id][i][j],end=" ")
+            print("]")
+
         if flag :
             print("Not Available Seats")
  
