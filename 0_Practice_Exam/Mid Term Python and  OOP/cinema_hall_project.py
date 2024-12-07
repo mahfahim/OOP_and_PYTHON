@@ -1,5 +1,3 @@
-from collections import defaultdict 
-
 class star_cinema:
     _hall_list = []
     def __init__(self):
