@@ -55,22 +55,24 @@ class hall(star_cinema):
             print(f"Show_ID: {id} , Movie_name: {nam} , Time: {t}")
     
     def view_available_seats(self,show_id):
-        print(f"Available seats for Show id {show_id}: ")
+        print(f"Seats for Show id {show_id}: ")
         if show_id not in self._seats:
             print("This show is not found")
             return
-
+        
+        flag = True
         for i in range(self._rows):
             for j in range(self._cols):
                if self._seats[show_id][i][j] == 0:
-                    print(f"Seat({i},{j})")        
-        
-     
+                    print(f"Seat({i},{j})") 
+                    flag=False       
+        if flag :
+            print("Not Available Seats")
  
 
 
 h1 = hall(111,5,3)
-h2 = hall(222,4,1)
+h2 = hall(222,1,1)
 h3 = hall(333,4,3)
 h4 = hall(444,2,3)
 h5 = hall(555,4,2)
