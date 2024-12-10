@@ -1,3 +1,5 @@
+#_______________________ User Start ___________________________________
+
 class User:
 
     def __init__(self,name,email,phone,address,account_type):
@@ -24,11 +26,15 @@ class User:
     def withdraw(self,amount):
          if self.current_balance < amount :
              print("Withdrawal amount exceeded")
+         elif Admin.bankrupt :
+             print("Bank is bankrupted and Withdrawal is not possible")
+         elif Admin.bank_total_balance < amount:
+            print("There is no available balance in the bank")
          else:
              self.current_balance -= amount
              Admin.bank_total_balance -= amount
-             print(f"Withdrawn: {amount}BDT and Avl Bal: {self.current_balance} BDT")
-             self.transec_history.append(f"Withdrawn: {amount}BDT and Avl Bal: {self.current_balance} BDT")
+             print(f"Withdrawn: {amount} BDT and Avl Bal: {self.current_balance} BDT")
+             self.transec_history.append(f"Withdrawn: {amount} BDT and Avl Bal: {self.current_balance} BDT")
          
 
 
@@ -38,16 +44,21 @@ class User:
 
 
     def check_transection_history(self):
+        print("\nTransection History : \n")
         for x in self.transec_history:
                print(x)
 
 
 
     def take_loan(self,amount):
-        if loan_num >= 2:
+        if self.loan_num >= 2:
             print("You have already taken two times loan")
         elif not Admin.is_loan_active:
             print("Loan feature is currently disabled")
+        elif Admin.bankrupt:
+            print("Bank is bankrupted and taking loan is not possible.")
+        elif Admin.bank_total_balance < amount:
+            print("There is no available balance in the bank")
         else:
             self.loan_num += 1
             self.current_balance += amount
@@ -58,9 +69,9 @@ class User:
 
 
 
-    def transfer_amount(self,receiver_acc,amount): ###################
+    def transfer_amount(self,receiver_acc,amount): 
          
-         if receiver_acc not in Admin.All_Account_obj: #######
+         if receiver_acc not in Admin.All_Account_obj: 
             print("Account does not exits")
 
          elif self.current_balance < amount:
@@ -71,8 +82,8 @@ class User:
             self.current_balance -= amount
             receiver_obj.current_balance += amount
             print(f"Transfered : {amount} BDT to Ac: {receiver_obj.account_number} And now your Avl Bal : {self.current_balance} BDT")
-            self.transec_history.append(f"Transfered : {amount} BDT to Ac: {receiver_obj.account_number} And now your Avl Bal : {self.current_balance} BDT")
-
+            self.transec_history.append(f"Transfered : {amount} BDT to Ac: {receiver_obj.account_number} And now your Avl Bal : {self.current_balance} BDT") 
+            receiver_obj.transec_history.append(f"Transfered : {amount} BDT from Ac: {self.account_number} And now your Avl Bal : {receiver_obj.current_balance} BDT") 
 
 
 #_____________________________ Admin Start_____________________________________________
@@ -80,9 +91,9 @@ class User:
 
 class Admin:
 
-    All_Account_obj = {} #
+    All_Account_obj = {} 
     bankrupt = False
-    bank_total_balance = 0 
+    bank_total_balance = 1000000000 # initially Bank openning balance
     total_loan_balance = 0  
     is_loan_active = True
     
@@ -132,13 +143,23 @@ class Admin:
     @classmethod
     def on_off_loan_feature(cls,press):
 
-         print("Press 1 for ON and press 0 for OFF loan features")
-
-         if press == 1 :
+         if press == '1' :
              cls.is_loan_active = True
              print("Taking Loan Acivated.")
-         else: 
+         elif press == '0': 
              cls.is_loan_active = False
              print("Taking Loan Stopped")
-
+         else : 
+             print("Pressed wrong option")
+    
+    @classmethod
+    def on_off_bankrupt(cls,press):
+         if press == '1' :
+            cls.bankrupt = True
+            print("Bankrupted")
+         elif press == '0': 
+            cls.bankrupt = False
+            print("Not Bankrupted")
+         else:
+            print("Pressed wrong option")
          
